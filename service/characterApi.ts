@@ -1,5 +1,11 @@
 import axios from "axios";
 
 export async function getAllCharacter() {
-  return await axios.get("/mk-characters");
+  const response = await axios.get("/mk-characters");
+  return response.data;
+}
+
+export async function saveCharacter(character: any) {
+  const response = await axios.post("/mk-characters", character);
+  return response.data;
 }

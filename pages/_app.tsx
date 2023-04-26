@@ -7,7 +7,7 @@ axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_BASE_URL;
 axios.defaults.withCredentials = true;
 axios.defaults.headers.common[
   "Authorization"
-] = `Bearer ${process.env.AUTH_TOKEN}`;
+] = `Bearer ${process.env.NEXT_PUBLIC_AUTH_TOKEN}`;
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Layout>
