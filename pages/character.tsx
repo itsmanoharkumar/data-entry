@@ -30,7 +30,9 @@ export default function Character({}: Props) {
 
   return (
     <div>
-      <div className={"text-lg font-semibold mb-4"}>Enter Mortal Kombat</div>
+      <div className={"text-lg font-semibold mb-4"}>
+        Mortal Kombat 11 Ultimate - Character
+      </div>
       <div className={"flex flex-wrap"}>
         <div className={"w-[400px] border-[1px] p-4 rounded ml-2"}>
           <CsvFileReader onComplete={setCsvData} />

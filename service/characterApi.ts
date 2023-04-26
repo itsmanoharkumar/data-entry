@@ -9,3 +9,8 @@ export async function saveCharacter(character: any) {
   const response = await axios.post("/mk-characters", character);
   return response.data;
 }
+
+export async function saveCharacterVariation(character: any) {
+  const response = await axios.post("/mk-character-variations", character);
+  return response.data;
+}

@@ -1,20 +1,24 @@
 import { useState } from "react";
 import CsvFileReader from "@/components/atoms/CsvFileReader";
-import { saveCharacter } from "@/service/characterApi";
+import { saveCharacter, saveCharacterVariation } from "@/service/characterApi";
 
 interface Props {}
 
 export default function Character({}: Props) {
   const [csvData, setCsvData] = useState<any>("Upload data to view");
-  const [characterNameKey, setCharacterNameKey] = useState<string>("");
+  // const [characterNameKey, setCharacterNameKey] = useState<string>("");
+  const [characterVariationNameKey, setCharacterVariationNameKey] =
+    useState<string>("");
+  const [characterIdKey, setCharacterIdKey] = useState<string>("");
 
   async function onSaveHandler() {
     const dataList: any[] = [];
-    if (csvData && csvData.length > 0 && characterNameKey) {
+    if (csvData && csvData.length > 0 && characterVariationNameKey) {
       csvData.forEach((item: any) => {
         const data = {
           data: {
-            name: item[characterNameKey],
+            name: item[characterVariationNameKey],
+            mk_character: item[characterIdKey],
           },
         };
         dataList.push(data);
@@ -22,15 +26,21 @@ export default function Character({}: Props) {
     }
     if (dataList?.length > 0) {
       for (const dataListElement of dataList) {
-        const response = await saveCharacter(dataListElement);
-        console.log(response);
+        try {
+          const response = await saveCharacterVariation(dataListElement);
+          console.log(response?.data);
+        } catch (e: any) {
+          console.log(e?.message);
+        }
       }
     }
   }
 
   return (
     <div>
-      <div className={"text-lg font-semibold mb-4"}>Enter Mortal Kombat</div>
+      <div className={"text-lg font-semibold mb-4"}>
+        Mortal Kombat 11 Ultimate - Character Variation
+      </div>
       <div className={"flex flex-wrap"}>
         <div className={"w-[400px] border-[1px] p-4 rounded ml-2"}>
           <CsvFileReader onComplete={setCsvData} />
@@ -38,13 +48,24 @@ export default function Character({}: Props) {
         <div className={"ml-2 w-[400px] border-[1px] p-4 rounded"}>
           <div className={"font-medium mt-4"}>Configuration</div>
           <div>
-            <div>Enter Character Key Name</div>
+            <div>Enter Character Variation Key Name</div>
             <input
               className={"border-[1px] p-2 rounded w-full mt-2"}
               type="text"
-              value={characterNameKey}
+              value={characterVariationNameKey}
               onChange={(e) => {
-                setCharacterNameKey(e.target.value);
+                setCharacterVariationNameKey(e.target.value);
+              }}
+            />
+          </div>
+          <div className={"mt-3"}>
+            <div>Enter Character Id Key Name</div>
+            <input
+              className={"border-[1px] p-2 rounded w-full mt-2"}
+              type="text"
+              value={characterIdKey}
+              onChange={(e) => {
+                setCharacterIdKey(e.target.value);
               }}
             />
           </div>

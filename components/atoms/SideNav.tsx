@@ -16,6 +16,11 @@ export default function SideNav({}: Props) {
           pathname={"/character"}
           name={"Character"}
         />
+        <NavButton
+          currentPath={currentPath}
+          pathname={"/characterVariation"}
+          name={"Character Variation"}
+        />
       </div>
     </div>
   );
