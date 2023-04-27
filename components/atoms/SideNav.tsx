@@ -26,6 +26,11 @@ export default function SideNav({}: Props) {
           pathname={"/inputCommands"}
           name={"Input Commands"}
         />
+        <NavButton
+          currentPath={currentPath}
+          pathname={"/helper"}
+          name={"Helper"}
+        />
       </div>
     </div>
   );
