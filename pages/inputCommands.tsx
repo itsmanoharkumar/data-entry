@@ -1,24 +1,75 @@
 import { useState } from "react";
 import CsvFileReader from "@/components/atoms/CsvFileReader";
-import { saveCharacter, saveCharacterVariation } from "@/service/characterApi";
+import {
+  saveCharacter,
+  saveCharacterVariation,
+  saveInputCommands,
+} from "@/service/characterApi";
+import { v4 as uuidv4 } from "uuid";
 
 interface Props {}
 
-export default function CharacterVariation({}: Props) {
+const MKKeyComboSubcategoryMap: any = {
+  Basic: "1",
+  "Jumping Attacks": "2",
+  "Hop Attacks": "3",
+  "Getup Attacks": "4",
+  "Flawless Block Attacks": "5",
+  Throws: "6",
+  "Roll Escapes": "7",
+  "Air Escape": "8",
+  "Kombo Attacks": "9",
+  "Special Moves": "10",
+  "Fatal Blow": "11",
+  Fatalities: "12",
+  Friendship: "13",
+  Brutalities: "14",
+  Abilities: "15",
+};
+
+export default function InputCommands({}: Props) {
   const [csvData, setCsvData] = useState<any>("Upload data to view");
-  // const [characterNameKey, setCharacterNameKey] = useState<string>("");
+  const [characterNameKey, setCharacterNameKey] = useState<string>("");
   const [characterVariationNameKey, setCharacterVariationNameKey] =
     useState<string>("");
   const [characterIdKey, setCharacterIdKey] = useState<string>("");
 
   async function onSaveHandler() {
     const dataList: any[] = [];
-    if (csvData && csvData.length > 0 && characterVariationNameKey) {
+    if (csvData && csvData.length > 0) {
       csvData.forEach((item: any) => {
+        const frameDataId = uuidv4();
+        const moveDataId = uuidv4();
+
         const data = {
           data: {
-            name: item[characterVariationNameKey],
-            mk_character: item[characterIdKey],
+            name: item.name,
+            inputCommands: item.inputCommands,
+            frameData: {
+              id: frameDataId,
+              startUp: item.startUp,
+              active: item.active,
+              recovery: item.recovery,
+              cancel: item.cancel,
+              hitAdv: item.hitAdv,
+              blockAdv: item.blockAdv,
+              fBlockAdv: item.fBlockAdv,
+            },
+            moveData: {
+              id: moveDataId,
+              blockDamage: item.blockDamage,
+              damage: item.damage,
+              fBlockDamage: item.fBlockDamage,
+              moveType: item.moveType,
+              specialNotes: item.specialNotes,
+              notes: item.notes,
+            },
+            mk_key_combo_subcategory:
+              MKKeyComboSubcategoryMap[item?.subCategory],
+            hasAmplify: item.hasAmplify || false,
+            isEquipped: item.isEquipped || false,
+            isCancellable: item.isCancellable || false,
+            mk_character_variation: item.mk_character_variation,
           },
         };
         dataList.push(data);
@@ -27,7 +78,7 @@ export default function CharacterVariation({}: Props) {
     if (dataList?.length > 0) {
       for (const dataListElement of dataList) {
         try {
-          const response = await saveCharacterVariation(dataListElement);
+          const response = await saveInputCommands(dataListElement);
           console.log(response?.data);
         } catch (e: any) {
           console.log(e?.message);
@@ -45,11 +96,12 @@ export default function CharacterVariation({}: Props) {
         <div className={"w-[400px] border-[1px] p-4 rounded ml-2"}>
           <CsvFileReader onComplete={setCsvData} />
         </div>
-        <div className={"ml-2 w-[400px] border-[1px] p-4 rounded"}>
+        <div className={"ml-2 w-[400px] border-[1px] p-4 rounded hidden"}>
           <div className={"font-medium mt-4"}>Configuration</div>
           <div>
             <div>Enter Character Variation Key Name</div>
             <input
+              disabled
               className={"border-[1px] p-2 rounded w-full mt-2"}
               type="text"
               value={characterVariationNameKey}

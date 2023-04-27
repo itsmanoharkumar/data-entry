@@ -10,7 +10,12 @@ export async function saveCharacter(character: any) {
   return response.data;
 }
 
-export async function saveCharacterVariation(character: any) {
-  const response = await axios.post("/mk-character-variations", character);
+export async function saveCharacterVariation(data: any) {
+  const response = await axios.post("/mk-character-variations", data);
+  return response.data;
+}
+
+export async function saveInputCommands(data: any) {
+  const response = await axios.post("/mk-key-combos", data);
   return response.data;
 }
