@@ -1,12 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CsvFileReader from "@/components/atoms/CsvFileReader";
-import { saveCharacter } from "@/service/characterApi";
+import { getAllCharacter, saveCharacter } from "@/service/characterApi";
 
 interface Props {}
 
 export default function Character({}: Props) {
   const [csvData, setCsvData] = useState<any>("Upload data to view");
   const [characterNameKey, setCharacterNameKey] = useState<string>("");
+
+  async function getAllCharacter2() {
+    const response = await getAllCharacter();
+    console.log(response);
+  }
+
+  useEffect(() => {
+    getAllCharacter2();
+  } , []);
 
   async function onSaveHandler() {
     const dataList: any[] = [];
