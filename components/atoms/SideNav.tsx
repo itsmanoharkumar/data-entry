@@ -4,7 +4,7 @@ import NavButton from "@/components/atoms/NavButton";
 
 interface Props {}
 
-export default function SideNav({}: Props) {
+export default function SideNav() {
   const router = useRouter();
   const currentPath = router.pathname;
   return (
@@ -30,6 +30,11 @@ export default function SideNav({}: Props) {
           currentPath={currentPath}
           pathname={"/helper"}
           name={"Helper"}
+        />
+        <NavButton
+          currentPath={currentPath}
+          pathname={"/setting"}
+          name={"Setting"}
         />
       </div>
     </div>
