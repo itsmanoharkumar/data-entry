@@ -5,6 +5,7 @@ const initialState = {
   operatingSystem: "",
   serverBaseUrl: "http://localhost:1337/api",
   serverAuthToken: "",
+  isSideNavOpen: false,
 };
 
 export const appSlice = createSlice({
@@ -20,6 +21,9 @@ export const appSlice = createSlice({
     setServerAuthToken(state, action) {
       state.serverAuthToken = action.payload;
     },
+    setIsSideNavOpen(state, action) {
+      state.isSideNavOpen = action.payload;
+    },
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
@@ -31,10 +35,15 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setOperatingSystem, setServerBaseUrl, setServerAuthToken } =
-  appSlice.actions;
+export const {
+  setIsSideNavOpen,
+  setOperatingSystem,
+  setServerBaseUrl,
+  setServerAuthToken,
+} = appSlice.actions;
 export const selectOperatingSystem = (state: any) => state.app.operatingSystem;
 export const selectServerBaseUrl = (state: any) => state.app.serverBaseUrl;
 export const selectServerAuthToken = (state: any) => state.app.serverAuthToken;
+export const selectIsSideNavOpen = (state: any) => state.app.isSideNavOpen;
 
 export default appSlice.reducer;

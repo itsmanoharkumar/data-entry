@@ -15,6 +15,7 @@ export default function Setting() {
   const serverAuthToken = useSelector(selectServerAuthToken);
   const [baseUrl, setBaseUrl] = useState<string>(serverBaseUrl);
   const [authToken, setAuthToken] = useState<string>(serverAuthToken);
+  console.log(serverBaseUrl);
 
   function onSaveHandler() {
     axios.defaults.baseURL = baseUrl;
@@ -25,11 +26,7 @@ export default function Setting() {
 
   return (
     <div>
-      <div
-        className={
-          "w-full border-solid border-gray-300 border-[1px] p-4 rounded"
-        }
-      >
+      <div className={"w-full border-[1px] p-4 rounded"}>
         <div className={"font-medium mt-4 text-2xl"}>Configuration</div>
         <div className={"mt-4"}>
           <div>Enter Base URL</div>

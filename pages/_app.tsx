@@ -4,20 +4,40 @@ import Layout from "@/layout/Layout";
 import axios from "axios";
 import { Provider } from "react-redux";
 import { wrapper } from "@/store/store";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
+import { CacheProvider, EmotionCache } from "@emotion/react";
+import createEmotionCache from "@/createEmotionCache";
+import Head from "next/head";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import theme from "@/theme";
+import React from "react";
+import SideNavDrawer from "@/components/molecules/SideNavDrawer/SideNavDrawer";
+
 axios.defaults.withCredentials = true;
 
-export default function App({ Component, ...rest }: AppProps) {
+const clientSideEmotionCache = createEmotionCache();
+
+export interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
+
+export default function App({ Component, ...rest }: MyAppProps) {
   const { store, props } = wrapper.useWrappedStore(rest);
-  const { pageProps } = props;
+  const { emotionCache = clientSideEmotionCache, pageProps } = props;
+
   return (
-    <Layout>
-      <Provider store={store}>
-        <Component {...pageProps} />
-      </Provider>
-    </Layout>
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+      </Head>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <CssBaseline />
+          <Layout>
+            <Component {...pageProps} />
+            <SideNavDrawer />
+          </Layout>
+        </Provider>
+      </ThemeProvider>
+    </CacheProvider>
   );
 }

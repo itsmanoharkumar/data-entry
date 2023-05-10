@@ -9,7 +9,11 @@ interface Props {
 export default function Layout({ children }: Props) {
   return (
     <div className={"w-full min-h-screen overflow-hidden flex flex-col"}>
-      <div className={"h-[64px] w-full border-b-[1px] border-gray-200"}>
+      <div
+        className={
+          "h-[64px] w-full border-0 border-b-[1px] border-gray-200 border-solid"
+        }
+      >
         <TopHeader />
       </div>
       <div className={"flex flex-auto items-stretch overflow-hidden"}>
