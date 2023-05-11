@@ -3,19 +3,24 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useDispatch } from "react-redux";
-import { setIsSideNavOpen } from "@/store/appSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsSideNavOpen, setIsSideNavOpen } from "@/store/appSlice";
 
 interface Props {}
 
 export default function TopHeader() {
   const dispatch = useDispatch();
+  const isSideNavOpen = useSelector(selectIsSideNavOpen);
+
   function onClickHandler() {
-    dispatch(setIsSideNavOpen(true));
+    dispatch(setIsSideNavOpen(!isSideNavOpen));
   }
 
   return (
-    <AppBar position="static">
+    <AppBar
+      position="fixed"
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+    >
       <Toolbar variant="dense">
         <IconButton
           edge="start"
