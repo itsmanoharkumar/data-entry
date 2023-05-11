@@ -2,6 +2,7 @@ import { useState } from "react";
 import CsvFileReader from "@/components/atoms/CsvFileReader";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "@mui/material";
+import { saveInputCommands } from "@/service/characterApi";
 
 interface Props {}
 
@@ -70,8 +71,8 @@ export default function InputCommands({}: Props) {
     if (dataList?.length > 0) {
       for (const dataListElement of dataList) {
         try {
-          // const response = await saveInputCommands(dataListElement);
-          // console.log(response?.data);
+          const response = await saveInputCommands(dataListElement);
+          console.log(response?.data);
         } catch (e: any) {
           console.log(e?.message);
         }
