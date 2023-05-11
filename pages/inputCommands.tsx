@@ -1,6 +1,5 @@
 import { useState } from "react";
 import CsvFileReader from "@/components/atoms/CsvFileReader";
-import { saveInputCommands } from "@/service/characterApi";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "@mui/material";
 
@@ -64,14 +63,15 @@ export default function InputCommands({}: Props) {
             character_variation: item.mk_character_variation,
           },
         };
+        console.log(data);
         dataList.push(data);
       });
     }
     if (dataList?.length > 0) {
       for (const dataListElement of dataList) {
         try {
-          const response = await saveInputCommands(dataListElement);
-          console.log(response?.data);
+          // const response = await saveInputCommands(dataListElement);
+          // console.log(response?.data);
         } catch (e: any) {
           console.log(e?.message);
         }
