@@ -1,11 +1,8 @@
 import { useState } from "react";
 import CsvFileReader from "@/components/atoms/CsvFileReader";
-import {
-  saveCharacter,
-  saveCharacterVariation,
-  saveInputCommands,
-} from "@/service/characterApi";
+import { saveInputCommands } from "@/service/characterApi";
 import { v4 as uuidv4 } from "uuid";
+import { Button } from "@mui/material";
 
 interface Props {}
 
@@ -29,10 +26,6 @@ const MKKeyComboSubcategoryMap: any = {
 
 export default function InputCommands({}: Props) {
   const [csvData, setCsvData] = useState<any>("Upload data to view");
-  const [characterNameKey, setCharacterNameKey] = useState<string>("");
-  const [characterVariationNameKey, setCharacterVariationNameKey] =
-    useState<string>("");
-  const [characterIdKey, setCharacterIdKey] = useState<string>("");
 
   async function onSaveHandler() {
     const dataList: any[] = [];
@@ -44,7 +37,7 @@ export default function InputCommands({}: Props) {
         const data = {
           data: {
             name: item.name,
-            inputCommands: item.inputCommands,
+            combo: item.inputCommands,
             frameData: {
               id: frameDataId,
               startUp: item.startUp || null,
@@ -64,12 +57,11 @@ export default function InputCommands({}: Props) {
               specialNotes: item.specialNotes,
               notes: item.notes,
             },
-            mk_key_combo_subcategory:
-              MKKeyComboSubcategoryMap[item?.subCategory],
+            subcategory: MKKeyComboSubcategoryMap[item?.subCategory],
             hasAmplify: ["true"].includes(item.hasAmplify?.toLowerCase()),
             isEquipped: ["true"].includes(item.isEquipped?.toLowerCase()),
             isCancellable: ["true"].includes(item.isCancellable?.toLowerCase()),
-            mk_character_variation: item.mk_character_variation,
+            character_variation: item.mk_character_variation,
           },
         };
         dataList.push(data);
@@ -96,42 +88,15 @@ export default function InputCommands({}: Props) {
         <div className={"w-[400px] border-[1px] p-4 rounded ml-2"}>
           <CsvFileReader onComplete={setCsvData} />
         </div>
-        <div className={"ml-2 w-[400px] border-[1px] p-4 rounded hidden"}>
-          <div className={"font-medium mt-4"}>Configuration</div>
-          <div>
-            <div>Enter Character Variation Key Name</div>
-            <input
-              disabled
-              className={"border-[1px] p-2 rounded w-full mt-2"}
-              type="text"
-              value={characterVariationNameKey}
-              onChange={(e) => {
-                setCharacterVariationNameKey(e.target.value);
-              }}
-            />
-          </div>
-          <div className={"mt-3"}>
-            <div>Enter Character Id Key Name</div>
-            <input
-              className={"border-[1px] p-2 rounded w-full mt-2"}
-              type="text"
-              value={characterIdKey}
-              onChange={(e) => {
-                setCharacterIdKey(e.target.value);
-              }}
-            />
-          </div>
-        </div>
         <div className={"ml-2 w-[400px] border-[1px] p-4 rounded mt-1"}>
           <div className={"font-medium my-4"}>Post Data</div>
-          <div>
-            <button
-              className={"p-2 rounded border w-[300px] border-gray-300"}
-              onClick={onSaveHandler}
-            >
-              Save
-            </button>
-          </div>
+          <Button
+            variant={"contained"}
+            className={"p-2 rounded border w-[300px] border-gray-300"}
+            onClick={onSaveHandler}
+          >
+            Save
+          </Button>
         </div>
       </div>
     </div>
