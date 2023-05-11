@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CsvFileReader from "@/components/atoms/CsvFileReader";
-import { saveCharacter, saveCharacterVariation } from "@/service/characterApi";
+import { saveCharacterVariation } from "@/service/characterApi";
+import { Button, TextField } from "@mui/material";
 
 interface Props {}
 
@@ -8,8 +9,8 @@ export default function CharacterVariation({}: Props) {
   const [csvData, setCsvData] = useState<any>("Upload data to view");
   // const [characterNameKey, setCharacterNameKey] = useState<string>("");
   const [characterVariationNameKey, setCharacterVariationNameKey] =
-    useState<string>("");
-  const [characterIdKey, setCharacterIdKey] = useState<string>("");
+    useState<string>("variationName");
+  const [characterIdKey, setCharacterIdKey] = useState<string>("characterId");
 
   async function onSaveHandler() {
     const dataList: any[] = [];
@@ -18,7 +19,7 @@ export default function CharacterVariation({}: Props) {
         const data = {
           data: {
             name: item[characterVariationNameKey],
-            mk_character: item[characterIdKey],
+            character: item[characterIdKey],
           },
         };
         dataList.push(data);
@@ -46,40 +47,36 @@ export default function CharacterVariation({}: Props) {
           <CsvFileReader onComplete={setCsvData} />
         </div>
         <div className={"ml-2 w-[400px] border-[1px] p-4 rounded"}>
-          <div className={"font-medium mt-4"}>Configuration</div>
-          <div>
-            <div>Enter Character Variation Key Name</div>
-            <input
-              className={"border-[1px] p-2 rounded w-full mt-2"}
-              type="text"
-              value={characterVariationNameKey}
-              onChange={(e) => {
-                setCharacterVariationNameKey(e.target.value);
-              }}
-            />
-          </div>
-          <div className={"mt-3"}>
-            <div>Enter Character Id Key Name</div>
-            <input
-              className={"border-[1px] p-2 rounded w-full mt-2"}
-              type="text"
-              value={characterIdKey}
-              onChange={(e) => {
-                setCharacterIdKey(e.target.value);
-              }}
-            />
-          </div>
+          <div className={"font-medium my-4"}>Configuration</div>
+          <TextField
+            value={characterVariationNameKey}
+            label="Character Variation Key Name"
+            variant="outlined"
+            onChange={(e) => {
+              setCharacterVariationNameKey(e.target.value);
+            }}
+            fullWidth={true}
+          />
+          <TextField
+            className={"mt-4"}
+            value={characterIdKey}
+            label="Character Id Key Name"
+            variant="outlined"
+            onChange={(e) => {
+              setCharacterIdKey(e.target.value);
+            }}
+            fullWidth={true}
+          />
         </div>
         <div className={"ml-2 w-[400px] border-[1px] p-4 rounded mt-1"}>
           <div className={"font-medium my-4"}>Post Data</div>
-          <div>
-            <button
-              className={"p-2 rounded border w-[300px] border-gray-300"}
-              onClick={onSaveHandler}
-            >
-              Save
-            </button>
-          </div>
+          <Button
+            variant={"contained"}
+            className={"p-2 rounded border w-[300px] border-gray-300"}
+            onClick={onSaveHandler}
+          >
+            Save
+          </Button>
         </div>
       </div>
     </div>
