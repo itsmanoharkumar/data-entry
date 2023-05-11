@@ -17,7 +17,7 @@ export default function SideNavDrawer() {
 
   return (
     <Drawer
-      variant={"temporary"}
+      variant={"permanent"}
       anchor={"left"}
       open={isSideNavOpen}
       onClose={onCloseHandler}
