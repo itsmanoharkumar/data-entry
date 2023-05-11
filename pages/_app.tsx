@@ -33,8 +33,10 @@ export default function App({ Component, ...rest }: MyAppProps) {
         <Provider store={store}>
           <CssBaseline />
           <Layout>
-            <Component {...pageProps} />
             <SideNavDrawer />
+            <div className={"flex justify-center w-full"}>
+              <Component {...pageProps} />
+            </div>
           </Layout>
         </Provider>
       </ThemeProvider>
