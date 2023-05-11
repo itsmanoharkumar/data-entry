@@ -20,6 +20,11 @@ export async function saveKomboCategory(data: any) {
   return response.data;
 }
 
+export async function saveKomboSubCategory(data: any) {
+  const response = await axios.post("/mkcombosubcats", data);
+  return response.data;
+}
+
 export async function saveInputCommands(data: any) {
   const response = await axios.post("/mkcombos", data);
   return response.data;

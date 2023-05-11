@@ -17,6 +17,11 @@ export const NAV_ROUTES = [
     name: "Kombo Category",
     path: "/komboCategory",
   },
+
+  {
+    name: "Kombo SubCategory",
+    path: "/komboSubCategory",
+  },
   {
     name: "Input Commands",
     path: "/inputCommands",
