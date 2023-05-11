@@ -15,6 +15,11 @@ export async function saveCharacterVariation(data: any) {
   return response.data;
 }
 
+export async function saveKomboCategory(data: any) {
+  const response = await axios.post("/mkcombocats", data);
+  return response.data;
+}
+
 export async function saveInputCommands(data: any) {
   const response = await axios.post("/mkcombos", data);
   return response.data;

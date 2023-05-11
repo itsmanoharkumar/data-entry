@@ -14,6 +14,10 @@ export const NAV_ROUTES = [
     path: "/characterVariation",
   },
   {
+    name: "Kombo Category",
+    path: "/komboCategory",
+  },
+  {
     name: "Input Commands",
     path: "/inputCommands",
   },
