@@ -1,8 +1,10 @@
 import SideNav from "@/components/atoms/SideNav";
-import { SwipeableDrawer } from "@mui/material";
+import { Drawer } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsSideNavOpen, setIsSideNavOpen } from "@/store/appSlice";
+import Toolbar from "@mui/material/Toolbar";
+import { DRAWER_WIDTH } from "@/utils/constants";
 
 interface Props {}
 
@@ -13,18 +15,24 @@ export default function SideNavDrawer() {
     dispatch(setIsSideNavOpen(false));
   };
 
-  const onOpenHandler = () => {
-    dispatch(setIsSideNavOpen(true));
-  };
-
   return (
-    <SwipeableDrawer
+    <Drawer
+      variant={"temporary"}
       anchor={"left"}
       open={isSideNavOpen}
       onClose={onCloseHandler}
-      onOpen={onOpenHandler}
+      onClick={onCloseHandler}
+      sx={{
+        width: DRAWER_WIDTH,
+        flexShrink: 0,
+        [`& .MuiDrawer-paper`]: {
+          width: DRAWER_WIDTH,
+          boxSizing: "border-box",
+        },
+      }}
     >
+      <Toolbar />
       <SideNav />
-    </SwipeableDrawer>
+    </Drawer>
   );
 }
