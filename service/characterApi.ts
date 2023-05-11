@@ -1,21 +1,21 @@
 import axios from "axios";
 
 export async function getAllCharacter() {
-  const response = await axios.get("/mk-characters");
+  const response = await axios.get("/mkcharacters");
   return response.data;
 }
 
 export async function saveCharacter(character: any) {
-  const response = await axios.post("/mk-characters", character);
+  const response = await axios.post("/mkcharacters", character);
   return response.data;
 }
 
 export async function saveCharacterVariation(data: any) {
-  const response = await axios.post("/mk-character-variations", data);
+  const response = await axios.post("/mkcharvars", data);
   return response.data;
 }
 
 export async function saveInputCommands(data: any) {
-  const response = await axios.post("/mk-key-combos", data);
+  const response = await axios.post("/mkcombos", data);
   return response.data;
 }
