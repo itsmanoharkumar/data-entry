@@ -10,6 +10,21 @@ export async function saveCharacter(character: any) {
   return response.data;
 }
 
+export async function saveProduct(product: any) {
+  const response = await axios.post("/products", product);
+  return response.data;
+}
+
+export async function saveShortcut(product: any) {
+  const response = await axios.post("/shortcuts", product);
+  return response.data;
+}
+
+export async function saveShortcutCategory(product: any) {
+  const response = await axios.post("/shortcut-categories", product);
+  return response.data;
+}
+
 export async function saveCharacterVariation(data: any) {
   const response = await axios.post("/mkcharvars", data);
   return response.data;

@@ -3,9 +3,9 @@ import { HYDRATE } from "next-redux-wrapper";
 
 const initialState = {
   operatingSystem: "",
-  serverBaseUrl: "http://localhost:1337/api",
+  serverBaseUrl: "https://keycombo-web-app.azurewebsites.net/api",
   serverAuthToken:
-    "e315f2ca496aeac21d7c6d9232a7ebc6ba20c5d8abb18dd5c4fcbfc1430bfecfeb448e2f86128b09421ecd0b306fa88f4ca62a6015a1491e09463de617fd8d2f13f8ea94c5ab955c7728111ddf1b919ef9c18e432af78963ce8de9bbb1bc9523adeefb1b3b54a5c792c8539322b89f5ee138f2a239ed0016b3a6bc3e95e13272",
+    "78b46549b2cf15dd9497d192f238cf711542bf46075043830a1df2ae555d10eecee64fd2d48c6172b41b3cbeac62a7e2c22b5f36e41e5176a2878027d7d2fdc3a84c815e840e1ac58a35186e98d9f017841c00deded1e1cd879c03274631163c1098ae436a99cf9156a253d0caf762ed9062e7aa763656b85cc55d3e925b7955",
   isSideNavOpen: false,
 };
 

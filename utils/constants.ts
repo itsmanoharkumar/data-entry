@@ -34,4 +34,16 @@ export const NAV_ROUTES = [
     name: "Setting",
     path: "/setting",
   },
+  {
+    name: "Product",
+    path: "/product",
+  },
+  {
+    name: "Shortcut Category",
+    path: "/shortcutCategory",
+  },
+  {
+    name: "Shortcut",
+    path: "/shortcut",
+  },
 ];
