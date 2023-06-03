@@ -57,9 +57,6 @@ export default function App({ Component, ...rest }: AppProps) {
                     <Layout>
                       <Component {...pageProps} />
                       <Analytics />
-                      {/*<CookieConsent>*/}
-                      {/*  This website uses cookies to enhance the user experience.*/}
-                      {/*</CookieConsent>*/}
                     </Layout>
                   </SnackbarProvider>
                 </UserAuthContext>
