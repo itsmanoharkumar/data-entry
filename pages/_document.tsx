@@ -1,29 +1,38 @@
+import createEmotionCache from "@/createEmotionCache";
+import { poppins } from "@/theme";
+import createEmotionServer from "@emotion/server/create-instance";
+import { useTheme } from "@mui/material/styles";
+import { AppType } from "next/app";
 import Document, {
-  Html,
+  DocumentContext,
+  DocumentProps,
   Head,
+  Html,
   Main,
   NextScript,
-  DocumentProps,
-  DocumentContext,
 } from "next/document";
-import * as React from "react";
-import createEmotionServer from "@emotion/server/create-instance";
-import { AppType } from "next/app";
-import theme, { roboto } from "@/theme";
-import createEmotionCache from "@/createEmotionCache";
+import { ComponentProps, ComponentType } from "react";
 import { MyAppProps } from "./_app";
 
 interface MyDocumentProps extends DocumentProps {
   emotionStyleTags: JSX.Element[];
 }
+
 export default function MyDocument({ emotionStyleTags }: MyDocumentProps) {
+  const theme = useTheme();
   return (
-    <Html lang="en" className={roboto.className}>
+    <Html lang="en" className={poppins.className}>
       <Head>
-        {/* PWA primary color */}
         <meta name="theme-color" content={theme.palette.primary.main} />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <meta name="emotion-insertion-point" content="" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icon-192x192.png"></link>
+        <link rel="preconnect" href="https://fonts.googleapis.com"></link>
+        <link rel="preconnect" href="https://fonts.gstatic.com"></link>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet"
+        ></link>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
         {emotionStyleTags}
       </Head>
       <body>
@@ -68,9 +77,7 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (
-        App: React.ComponentType<React.ComponentProps<AppType> & MyAppProps>
-      ) =>
+      enhanceApp: (App: ComponentType<ComponentProps<AppType> & MyAppProps>) =>
         function EnhanceApp(props) {
           return <App emotionCache={cache} {...props} />;
         },
