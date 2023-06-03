@@ -5,7 +5,12 @@ import ResponsiveAppBar from "@/components/molecules/ResponsiveAppBar";
 import { selectThemeMode } from "@/store/appSlice";
 import { getTheme } from "@/theme";
 import { THEME_MODE } from "@/types/types";
-import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
+import {
+  Container,
+  CssBaseline,
+  ThemeProvider,
+  useMediaQuery,
+} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { ReactNode, useMemo } from "react";
 import { useSelector } from "react-redux";
@@ -35,7 +40,14 @@ export default function Layout({ children }: { children: ReactNode }) {
               pt: "64px",
             }}
           >
-            {children}
+            <Container
+              maxWidth={"xl"}
+              sx={{
+                p: 2,
+              }}
+            >
+              {children}
+            </Container>
           </Grid>
           <Grid minWidth={"100%"}>
             <Footer />
