@@ -4,7 +4,6 @@ import ThemeToggleSwitch from "@/components/atoms/ThemeToggleSwitch";
 import SideNavList from "@/components/molecules/SideNavList";
 import { NAV_ROUTES, SETTING_LIST } from "@/helpers/constants";
 import { selectAuthState } from "@/store/authSlice";
-import { SearchOutlined } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Stack, SwipeableDrawer } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
@@ -53,20 +52,15 @@ function ResponsiveAppBar() {
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setState(true);
-    // setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    // setAnchorElNav(null);
-  };
-
   const handleCloseUserMenu = (setting: string) => {
     if (setting === "Logout") {
       removeCookie("authToken");
-      navigate.replace("/");
+      navigate.replace("/login");
     }
     setAnchorElUser(null);
   };
@@ -109,13 +103,12 @@ function ResponsiveAppBar() {
                   horizontal: "left",
                 }}
                 open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
                 sx={{
                   display: { xs: "block", md: "none" },
                 }}
               >
                 {NAV_ROUTES.map((page) => (
-                  <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                  <MenuItem key={page.title}>
                     <Typography textAlign="center">{page.title}</Typography>
                   </MenuItem>
                 ))}
@@ -132,7 +125,6 @@ function ResponsiveAppBar() {
                   <Button
                     key={page.title}
                     color={isActive ? "primary" : "inherit"}
-                    onClick={handleCloseNavMenu}
                     sx={{ my: 2, display: "block" }}
                   >
                     <Link
@@ -147,13 +139,6 @@ function ResponsiveAppBar() {
             </Box>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               &nbsp;
-            </Box>
-            <Box
-              sx={{ flexGrow: 0, mr: 2, display: { xs: "none", sm: "flex" } }}
-            >
-              <IconButton aria-label="search" size="large">
-                <SearchOutlined fontSize="inherit" />
-              </IconButton>
             </Box>
             <Box
               sx={{ flexGrow: 0, mr: 2, display: { xs: "none", sm: "flex" } }}

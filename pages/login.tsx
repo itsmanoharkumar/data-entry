@@ -1,4 +1,3 @@
-import Link from "@/components/atoms/Link";
 import { useLoginUser } from "@/hooks/useLoginUser";
 import SignInImage from "@/images/sign-in.svg";
 import { selectAuthState } from "@/store/authSlice";
@@ -50,9 +49,6 @@ export default function Login() {
           <Typography sx={{ mb: 1.5 }} variant="h3" component="div">
             Log In
           </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            Unlock Efficiency and Take Command of Your Digital Experience
-          </Typography>
           <Stack spacing={2}>
             <TextField
               autoFocus={true}
@@ -93,18 +89,6 @@ export default function Login() {
               Log In
             </Button>
           </Stack>
-          <div className="flex justify-between pt-2">
-            <Link href={"/signup"}>
-              <Button variant="text" color="inherit">
-                Create Account
-              </Button>
-            </Link>
-            <Link href={"/resetPassword"}>
-              <Button variant="text" color="primary">
-                Forgot Password?
-              </Button>
-            </Link>
-          </div>
         </Grid>
         <Grid
           sx={{

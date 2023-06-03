@@ -13,31 +13,7 @@ export interface LoginRequestPayload {
   password: string;
 }
 
-export interface RegisterResponsePayload {
-  jwt: string;
-  user: {
-    id: number;
-    username: string;
-    email: string;
-    provider: string;
-    confirmed: boolean;
-    blocked: boolean;
-    createdAt: string;
-    updatedAt: string;
-  };
-}
-
-export async function registerApi(
-  payload: RegisterRequestPayload
-): Promise<RegisterResponsePayload> {
-  const response: AxiosResponse = await axios.post(
-    API_ROUTES.register,
-    payload
-  );
-  return response.data;
-}
-
-interface LoginResponsePayload {
+export interface LoginResponsePayload {
   jwt: string;
   user: {
     id: number;

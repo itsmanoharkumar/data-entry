@@ -27,7 +27,7 @@ export default function Logo({}: Props) {
             textDecoration: "none",
           }}
         >
-          KEYCOMBO
+          DATAENTRY
         </Typography>
       </Link>
     </Grid>
