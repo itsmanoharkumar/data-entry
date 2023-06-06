@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import { THEME_MODE } from "@/types/types";
+import axios from "axios";
 
 const initialState = {
   serverBaseUrl: "",
@@ -47,5 +48,17 @@ export const selectServerBaseUrl = (state: any) => state.app.serverBaseUrl;
 export const selectServerAuthToken = (state: any) => state.app.serverAuthToken;
 export const selectIsSideNavOpen = (state: any) => state.app.isSideNavOpen;
 export const selectThemeMode = (state: any) => state.app.themeMode;
+
+export const selectAxiosInstance = (state: any) => {
+  // create new axios instance with custom config and authToken
+  const axiosInstance = axios.create({
+    baseURL: state.app.serverBaseUrl,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${state.app.serverAuthToken}`,
+    },
+  });
+  return axiosInstance;
+};
 
 export default appSlice.reducer;

@@ -11,14 +11,15 @@ interface ProductConfiguration {
   };
 }
 
-export default function useProductConfiguration(id: number) {
+export default function useProductConfiguration(id: string) {
   const [productConfiguration, setProductConfiguration] =
     useState<ProductConfiguration | null>(null);
 
   useEffect(() => {
     async function asyncFunction() {
       try {
-        const response = await getProductConfigurationApi(id);
+        const response = await getProductConfigurationApi(Number(id));
+        debugger;
         setProductConfiguration(response?.data);
       } catch (error: any) {
         console.log(error?.response?.statusText);
@@ -26,5 +27,6 @@ export default function useProductConfiguration(id: number) {
     }
     asyncFunction();
   }, [id]);
-  return productConfiguration;
+
+  return [productConfiguration];
 }
