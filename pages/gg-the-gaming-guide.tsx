@@ -20,6 +20,7 @@ import {
 } from "@/store/appSlice";
 import MonacoEditor from "@/components/atoms/MonacoEditor";
 import { v4 as uuidv4 } from "uuid";
+import { LoadingButton } from "@mui/lab";
 
 const MKKeyComboSubcategoryMap: any = {
   Basic: "1",
@@ -184,6 +185,7 @@ export default function GGTheGamingGuide() {
   const [successList, setSuccessList] = useState<any[]>([]);
   const [errorTextData, setErrorTextData] = useState("");
   const [successTextData, setSuccessTextData] = useState("");
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
 
   useEffect(() => {
     try {
@@ -410,6 +412,7 @@ export default function GGTheGamingGuide() {
       const snackBarId = enqueueSnackbar("Sending data...", {
         variant: "info",
       });
+      setIsButtonLoading(true);
       for (const item of apiRoutesMapData) {
         if (item.value === selectedApiRoute) {
           if (item?.validate) {
@@ -442,6 +445,7 @@ export default function GGTheGamingGuide() {
           }
         }
       }
+      setIsButtonLoading(false);
       closeSnackbar(snackBarId);
     }
   }
@@ -586,9 +590,13 @@ export default function GGTheGamingGuide() {
           </Grid>
           <Grid>
             {isDataValidated && csvData && (
-              <Button variant={"contained"} onClick={onSendDataToStrapi}>
+              <LoadingButton
+                loading={isButtonLoading}
+                variant={"contained"}
+                onClick={onSendDataToStrapi}
+              >
                 Send To Strapi
-              </Button>
+              </LoadingButton>
             )}
           </Grid>
           <Grid>
