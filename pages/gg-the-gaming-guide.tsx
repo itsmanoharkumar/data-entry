@@ -113,7 +113,7 @@ function validateCombo(data: any[]) {
     "isEquipped",
     "specialNotes",
     "notes",
-    "mk_character_variation",
+    "mk_character",
   ];
   let isValid = true;
   const firstRow = data[0];
@@ -143,7 +143,6 @@ function validateCombo(data: any[]) {
 
 enum API_ROUTES {
   CHARACTERS = "/mkcharacters",
-  CHARACTER_VARIATION = "/mkcharvars",
   COMBO_CATEGORY = "/mkcombocats",
   COMBO_SUBCATEGORY = "/mkcombosubcats",
   COMBO = "/mkcombos",
@@ -154,11 +153,6 @@ const apiRoutesMapData = [
     label: "Characters",
     value: API_ROUTES.CHARACTERS,
     validate: validateCharacterData,
-  },
-  {
-    label: "Character Variation",
-    value: API_ROUTES.CHARACTER_VARIATION,
-    validate: validateCharacterVariationData,
   },
   {
     label: "Combo Category",
@@ -276,7 +270,7 @@ export default function GGTheGamingGuide() {
             selectedApiRoute,
             dataListElement
           );
-          successList.push(dataListElement);
+          successList.push(response?.data);
         } catch (e: any) {
           errorList.push({
             data: dataListElement,
@@ -319,38 +313,6 @@ export default function GGTheGamingGuide() {
     return { errorList, successList, dataList };
   }
 
-  async function saveCharacterVariations() {
-    const errorList: any[] = [];
-    const successList: any[] = [];
-    const dataList: any[] = [];
-    csvData?.forEach((item: any) => {
-      const data = {
-        data: {
-          name: item?.name?.trim(),
-          character: +item?.characterId,
-        },
-      };
-      dataList.push(data);
-    });
-    if (dataList?.length > 0) {
-      for (const dataListElement of dataList) {
-        try {
-          const response = await saveData(
-            axiosInstance,
-            selectedApiRoute,
-            dataListElement
-          );
-          successList.push(response?.data);
-        } catch (e: any) {
-          errorList.push({
-            data: dataListElement,
-            error: e?.response?.data?.error?.details?.errors,
-          });
-        }
-      }
-    }
-    return { errorList, successList, dataList };
-  }
   async function saveComboSubCategory() {
     const errorList: any[] = [];
     const successList: any[] = [];
@@ -417,7 +379,7 @@ export default function GGTheGamingGuide() {
           hasAmplify: ["true"].includes(item.hasAmplify?.toLowerCase()),
           isEquipped: ["true"].includes(item.isEquipped?.toLowerCase()),
           isCancellable: ["true"].includes(item.isCancellable?.toLowerCase()),
-          character_variation: item.mk_character_variation,
+          character: item.mk_character,
         },
       };
 
@@ -456,11 +418,6 @@ export default function GGTheGamingGuide() {
               let errorList: any[], successList: any[], dataList: any[];
               if (selectedApiRoute === API_ROUTES.CHARACTERS) {
                 ({ errorList, successList, dataList } = await saveCharacters());
-                handleErrorSuccessData(errorList, successList, dataList);
-              }
-              if (selectedApiRoute === API_ROUTES.CHARACTER_VARIATION) {
-                ({ errorList, successList, dataList } =
-                  await saveCharacterVariations());
                 handleErrorSuccessData(errorList, successList, dataList);
               }
               if (selectedApiRoute === API_ROUTES.COMBO_CATEGORY) {
